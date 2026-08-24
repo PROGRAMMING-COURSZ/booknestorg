@@ -11,10 +11,18 @@ export function resolvePublicUrl(filePath: string): string {
   ) {
     return filePath;
   }
+
+  // Ensure path starts with a clean '/'
+  const normalizedPath = filePath.startsWith('/') ? filePath : `/${filePath}`;
   const base = ((import.meta as any).env?.BASE_URL as string) || '/';
-  const cleanPath = filePath.startsWith('/') ? filePath.slice(1) : filePath;
-  const cleanBase = base.endsWith('/') ? base : `${base}/`;
-  return `${cleanBase}${cleanPath}`;
+
+  // If base is root or relative, return absolute normalized path to avoid SPA sub-route path pollution (e.g. /reader/books/...)
+  if (!base || base === '/' || base === './' || base === '.') {
+    return normalizedPath;
+  }
+
+  const cleanBase = base.endsWith('/') ? base.slice(0, -1) : base;
+  return `${cleanBase}${normalizedPath}`;
 }
 
 // Configure the worker source for pdfjs-dist

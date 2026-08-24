@@ -33,6 +33,16 @@ export async function fetchBookManifest(): Promise<Book[]> {
     // Fallback: If fetch failed, return known demo book structure so the app remains resilient
     return [
       {
+        id: 'demo-book',
+        file: '/books/demo_book.pdf',
+        filename: 'demo_book.pdf',
+        title: 'The Little Bookshop',
+        author: 'Clara Bell',
+        description: 'A cozy story about a student discovering a hidden book haven',
+        pageCount: 5,
+        fileSize: '6 KB',
+      },
+      {
         id: 'the-little-bookshop',
         file: '/books/the_little_bookshop.pdf',
         filename: 'the_little_bookshop.pdf',

@@ -2,5 +2,7 @@
   "name": "BookNest",
   "description": "A cozy, modern digital book library and browser-based PDF reader for browsing, reading, and downloading static PDF collections.",
   "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
 }
