@@ -1,0 +1,62 @@
+[
+  {
+    "id": "demo-book",
+    "file": "/books/demo_book.pdf",
+    "filename": "demo_book.pdf",
+    "title": "The Little Bookshop",
+    "author": "Clara Bell",
+    "description": "A cozy story about a student discovering a hidden book haven",
+    "pageCount": 5,
+    "fileSize": "6 KB",
+    "fileSizeBytes": 6206,
+    "addedAt": "2026-08-24T18:21:42.351Z"
+  },
+  {
+    "id": "atomic-habits-focus",
+    "file": "/books/atomic_habits_focus.pdf",
+    "filename": "atomic_habits_focus.pdf",
+    "title": "Atomic Habits & Daily Focus",
+    "author": "James Clear & Studio Notes",
+    "description": "Practical strategies for building tiny routines that yield remarkable outcomes",
+    "pageCount": 3,
+    "fileSize": "3 KB",
+    "fileSizeBytes": 3476,
+    "addedAt": "2026-08-24T18:21:42.430Z"
+  },
+  {
+    "id": "the-cozy-tea-garden",
+    "file": "/books/the_cozy_tea_garden.pdf",
+    "filename": "the_cozy_tea_garden.pdf",
+    "title": "The Cozy Tea Garden Guide",
+    "author": "Mei Lin",
+    "description": "A gentle handbook on herbs, brewing traditions, and mindful moments",
+    "pageCount": 3,
+    "fileSize": "3 KB",
+    "fileSizeBytes": 3325,
+    "addedAt": "2026-08-24T18:21:42.409Z"
+  },
+  {
+    "id": "the-little-bookshop",
+    "file": "/books/the_little_bookshop.pdf",
+    "filename": "the_little_bookshop.pdf",
+    "title": "The Little Bookshop",
+    "author": "Clara Bell",
+    "description": "A cozy story about a student discovering a hidden book haven",
+    "pageCount": 5,
+    "fileSize": "6 KB",
+    "fileSizeBytes": 6206,
+    "addedAt": "2026-08-24T18:21:42.351Z"
+  },
+  {
+    "id": "starlight-chronicles",
+    "file": "/books/starlight_chronicles.pdf",
+    "filename": "starlight_chronicles.pdf",
+    "title": "The Starlight Chronicles",
+    "author": "Julian Moore",
+    "description": "Essays on Night Skies and Wonder",
+    "pageCount": 3,
+    "fileSize": "4 KB",
+    "fileSizeBytes": 3626,
+    "addedAt": "2026-08-24T18:21:42.397Z"
+  }
+]
