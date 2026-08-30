@@ -34,6 +34,7 @@ export const Reader: React.FC = () => {
         filename: filename,
         title: formatTitleFromFilename(filename),
         author: 'Unknown Author',
+        template_img: '/books/demo.jpg',
       };
     }
 

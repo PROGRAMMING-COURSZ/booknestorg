@@ -99,8 +99,7 @@ async function scanAndGenerateManifest() {
       description,
       pageCount,
       fileSize: formattedSize,
-      fileSizeBytes: sizeInBytes,
-      addedAt: stats.mtime.toISOString(),
+      template_img: '/books/demo.jpg',
     });
   }
 

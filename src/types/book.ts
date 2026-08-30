@@ -7,9 +7,9 @@ export interface Book {
   description?: string;
   pageCount?: number;
   fileSize?: string;
-  fileSizeBytes?: number;
-  thumbnail?: string | null;
-  addedAt?: string;
+  category?: string;
+  language?: string;
+  template_img?: string;
 }
 
 export type ReaderColorTheme = 'light' | 'sepia' | 'calm';

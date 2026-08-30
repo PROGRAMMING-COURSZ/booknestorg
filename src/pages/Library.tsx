@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useBooks } from '../hooks/useBooks';
 import { Header } from '../components/Header/Header';
 import { HeroSection } from '../components/Hero/HeroSection';
@@ -8,8 +8,13 @@ import { LoadingState } from '../components/LoadingState/LoadingState';
 import { EmptyState } from '../components/EmptyState/EmptyState';
 import { ErrorState } from '../components/ErrorState/ErrorState';
 import { BookOpen, Sparkles, Heart, ShieldCheck } from 'lucide-react';
+import { Book } from '../types/book';
+import { useReadingProgress } from '../hooks/useReadingProgress';
+import { BookDetailsModal } from '../components/BookDetailsModal/BookDetailsModal';
 
 export const Library: React.FC = () => {
+  const [selectedBook, setSelectedBook] = useState<Book | null>(null);
+  const { allProgress } = useReadingProgress();
   const {
     books,
     filteredBooks,
@@ -22,6 +27,10 @@ export const Library: React.FC = () => {
     setSortBy,
     reload,
   } = useBooks();
+  const recentBooks = books.filter((book) => allProgress[book.id]?.lastReadAt).sort((a, b) => (allProgress[b.id]?.lastReadAt || 0) - (allProgress[a.id]?.lastReadAt || 0));
+  const completedBooks = books.filter((book) => allProgress[book.id]?.completed);
+  const favoriteBooks = books.filter((book) => allProgress[book.id]?.favorite);
+  const section = (title: string, sectionBooks: Book[], empty: string) => <section className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pt-8"><h2 className="font-serif-book text-xl font-bold text-[#2d2d2b]">{title}</h2>{sectionBooks.length ? <BookGrid books={sectionBooks} onBookSelect={setSelectedBook} /> : <p className="py-4 text-sm text-[#8c8c82]">{empty}</p>}</section>;
 
   return (
     <div id="booknest-library-page" className="min-h-screen flex flex-col bg-[#fdfdfa] text-[#2d2d2b]">
@@ -71,7 +80,12 @@ export const Library: React.FC = () => {
           )}
 
           {!isLoading && !error && filteredBooks.length > 0 && (
-            <BookGrid books={filteredBooks} />
+            <>
+              {!searchQuery && section('Recent', recentBooks, 'No recently read books yet. Start reading a book to see it here.')}
+              {section(searchQuery ? 'Search results' : 'Books', filteredBooks, 'No books found.')}
+              {!searchQuery && section('Completed', completedBooks, 'No completed books yet.')}
+              {!searchQuery && section('Favorites', favoriteBooks, 'No favorites yet. Save a book to find it here.')}
+            </>
           )}
         </section>
       </main>
@@ -104,6 +118,7 @@ export const Library: React.FC = () => {
           </div>
         </div>
       </footer>
+      {selectedBook && <BookDetailsModal book={selectedBook} onClose={() => setSelectedBook(null)} />}
     </div>
   );
 };

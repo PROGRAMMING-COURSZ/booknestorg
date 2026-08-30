@@ -11,7 +11,8 @@ import {
   resolvePublicUrl,
 } from '../../utils/pdfUtils';
 import { Book, Bookmark, ReaderColorTheme, ReaderTransitionEffect } from '../../types/book';
-import { getBookProgress, saveBookProgress } from '../../utils/readingProgress';
+import { getBookProgress, saveBookProgress, markBookCompleted } from '../../utils/readingProgress';
+import { useReadingProgress } from '../../hooks/useReadingProgress';
 import {
   getBookBookmarks,
   toggleBookmark,
@@ -28,8 +29,6 @@ import { useFullscreen } from '../../hooks/useFullscreen';
 import {
   ChevronLeft,
   ChevronRight,
-  ZoomIn,
-  ZoomOut,
   X,
   BookmarkCheck,
   Bookmark as BookmarkIcon,
@@ -42,6 +41,7 @@ interface BookReaderProps {
 }
 
 export const BookReader: React.FC<BookReaderProps> = ({ book }) => {
+  const { progress, refreshProgress } = useReadingProgress(book.id);
   const containerRef = useRef<HTMLDivElement>(null);
   const [stageWidth, setStageWidth] = useState<number>(() =>
     typeof window !== 'undefined' ? window.innerWidth : 800
@@ -609,6 +609,8 @@ export const BookReader: React.FC<BookReaderProps> = ({ book }) => {
         }}
         onToggleBookmark={handleToggleCurrentBookmark}
         onToggleTwoPageMode={toggleTwoPageMode}
+        isCompleted={Boolean(progress?.completed)}
+        onMarkCompleted={() => { markBookCompleted(book.id, totalPages); refreshProgress(); }}
       />
 
       {/* Bookmarks Slide-Out Drawer */}
@@ -970,6 +972,7 @@ export const BookReader: React.FC<BookReaderProps> = ({ book }) => {
               </span>
             </p>
           </div>
+          {currentPage >= totalPages && <section className="mb-24 sm:mb-8 w-full max-w-xl rounded-2xl border border-[#dec8a7] bg-[#fdfaf3] p-5 text-center"><h2 className="font-serif-book text-lg font-bold">You've reached the end of this book.</h2><p className="text-sm text-[#8c8c82] mt-1">{progress?.completed ? 'This book is marked as completed.' : 'Save this reading milestone to your library.'}</p>{!progress?.completed && <button type="button" onClick={() => { markBookCompleted(book.id, totalPages); refreshProgress(); }} className="mt-4 inline-flex items-center gap-2 rounded-full bg-[#5A5A40] px-4 py-2 text-sm font-semibold text-white"><BookmarkCheck className="w-4 h-4" />Mark as Completed</button>}</section>}
         </main>
       </div>
 
@@ -984,104 +987,9 @@ export const BookReader: React.FC<BookReaderProps> = ({ book }) => {
             : 'bg-[#fdfdfa]/95 border-[#e5e5de] text-[#2d2d2b]'
         }`}
       >
-        <button
-          type="button"
-          id="mobile-prev-page-btn"
-          onClick={prevPage}
-          disabled={currentPage <= 1}
-          className="p-2 rounded-full bg-[#f5f5f0] disabled:opacity-30 text-[#5A5A40] active:scale-95 transition-transform cute-btn cursor-pointer"
-          aria-label="Previous Page"
-        >
-          <ChevronLeft className="w-5 h-5" />
-        </button>
-
-        <div className="flex items-center gap-1.5">
-          <span className="text-xs font-bold font-mono">
-            {isTwoPageMode
-              ? `${leftPageNum}-${hasRightPage ? rightPageNum : leftPageNum}`
-              : currentPage}{' '}
-            / {totalPages}
-          </span>
-          <button
-            type="button"
-            id="mobile-thumbs-btn"
-            onClick={() => {
-              setShowThumbnails(!showThumbnails);
-              if (!showThumbnails) setShowBookmarksDrawer(false);
-            }}
-            className="px-2 py-1 text-xs font-medium rounded-full bg-[#f5f5f0] text-[#5A5A40] cute-btn cursor-pointer"
-            aria-label="Toggle Page Thumbnails"
-          >
-            Pages
-          </button>
-          <button
-            type="button"
-            id="mobile-bookmarks-btn"
-            onClick={() => {
-              setShowBookmarksDrawer(!showBookmarksDrawer);
-              if (!showBookmarksDrawer) setShowThumbnails(false);
-            }}
-            className={`px-2 py-1 text-xs font-medium rounded-full cute-btn cursor-pointer flex items-center gap-1 ${
-              bookmarks.length > 0
-                ? 'bg-[#5A5A40] text-white'
-                : 'bg-[#f5f5f0] text-[#5A5A40]'
-            }`}
-            aria-label="Toggle Bookmarks Drawer"
-          >
-            <BookmarkIcon className="w-3 h-3 fill-current" />
-            <span>{bookmarks.length}</span>
-          </button>
-        </div>
-
-        <div className="flex items-center gap-1">
-          <button
-            type="button"
-            id="mobile-bookmark-toggle-btn"
-            onClick={handleToggleCurrentBookmark}
-            className={`p-2 rounded-full cute-btn cursor-pointer ${
-              isCurrentPageBookmarked
-                ? 'bg-[#5A5A40] text-[#dec8a7]'
-                : 'bg-[#f5f5f0] text-[#5A5A40]'
-            }`}
-            title="Bookmark this page"
-            aria-label="Bookmark this page"
-          >
-            <BookmarkIcon className={`w-4 h-4 ${isCurrentPageBookmarked ? 'fill-current' : ''}`} />
-          </button>
-
-          <button
-            type="button"
-            id="mobile-zoom-out-btn"
-            onClick={handleZoomOut}
-            disabled={zoom <= 0.6}
-            className="p-2 rounded-full bg-[#f5f5f0] disabled:opacity-30 text-[#5A5A40] cute-btn cursor-pointer"
-            aria-label="Zoom Out"
-          >
-            <ZoomOut className="w-4 h-4" />
-          </button>
-
-          <button
-            type="button"
-            id="mobile-zoom-in-btn"
-            onClick={handleZoomIn}
-            disabled={zoom >= 2.5}
-            className="p-2 rounded-full bg-[#f5f5f0] disabled:opacity-30 text-[#5A5A40] cute-btn cursor-pointer"
-            aria-label="Zoom In"
-          >
-            <ZoomIn className="w-4 h-4" />
-          </button>
-
-          <button
-            type="button"
-            id="mobile-next-page-btn"
-            onClick={nextPage}
-            disabled={currentPage >= totalPages}
-            className="p-2 rounded-full bg-[#5A5A40] text-white disabled:opacity-30 active:scale-95 transition-transform cute-btn cursor-pointer"
-            aria-label="Next Page"
-          >
-            <ChevronRight className="w-5 h-5" />
-          </button>
-        </div>
+        <button type="button" id="mobile-prev-page-btn" onClick={prevPage} disabled={currentPage <= 1} className="min-w-11 min-h-11 p-2 rounded-full bg-[#f5f5f0] disabled:opacity-30 text-[#5A5A40] cute-btn" aria-label="Previous Page"><ChevronLeft className="w-5 h-5" /></button>
+        <span className="text-xs font-bold font-mono">{currentPage} / {totalPages}</span>
+        <button type="button" id="mobile-next-page-btn" onClick={nextPage} disabled={currentPage >= totalPages} className="min-w-11 min-h-11 p-2 rounded-full bg-[#5A5A40] text-white disabled:opacity-30 cute-btn" aria-label="Next Page"><ChevronRight className="w-5 h-5" /></button>
       </nav>
     </div>
   );

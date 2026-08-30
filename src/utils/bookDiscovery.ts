@@ -41,6 +41,7 @@ export async function fetchBookManifest(): Promise<Book[]> {
         description: 'A cozy story about a student discovering a hidden book haven',
         pageCount: 5,
         fileSize: '6 KB',
+        template_img: '/books/demo.jpg',
       },
       {
         id: 'the-little-bookshop',
@@ -51,6 +52,7 @@ export async function fetchBookManifest(): Promise<Book[]> {
         description: 'A cozy story about a student discovering a hidden book haven',
         pageCount: 5,
         fileSize: '6 KB',
+        template_img: '/books/demo.jpg',
       },
       {
         id: 'starlight-chronicles',
@@ -61,6 +63,7 @@ export async function fetchBookManifest(): Promise<Book[]> {
         description: 'Essays on Night Skies, Constellations & Wonder',
         pageCount: 3,
         fileSize: '4 KB',
+        template_img: '/books/demo.jpg',
       },
       {
         id: 'the-cozy-tea-garden',
@@ -71,6 +74,7 @@ export async function fetchBookManifest(): Promise<Book[]> {
         description: 'Herbal Infusions, Mindful Brewing & Gentle Rituals',
         pageCount: 3,
         fileSize: '4 KB',
+        template_img: '/books/demo.jpg',
       },
       {
         id: 'atomic-habits-focus',
@@ -81,6 +85,7 @@ export async function fetchBookManifest(): Promise<Book[]> {
         description: 'Tiny Changes, Remarkable Results for Lifelong Readers',
         pageCount: 3,
         fileSize: '4 KB',
+        template_img: '/books/demo.jpg',
       },
     ];
   }

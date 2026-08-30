@@ -17,6 +17,8 @@ import {
   FileText,
   Bookmark,
   BookmarkCheck,
+  CheckCircle2,
+  Menu,
 } from 'lucide-react';
 import { ReaderColorTheme, ReaderTransitionEffect } from '../../types/book';
 
@@ -47,6 +49,8 @@ interface ReaderToolbarProps {
   onToggleBookmarksDrawer?: () => void;
   onToggleBookmark?: () => void;
   onToggleTwoPageMode: () => void;
+  isCompleted?: boolean;
+  onMarkCompleted?: () => void;
 }
 
 export const ReaderToolbar: React.FC<ReaderToolbarProps> = ({
@@ -76,8 +80,11 @@ export const ReaderToolbar: React.FC<ReaderToolbarProps> = ({
   onToggleBookmarksDrawer,
   onToggleBookmark,
   onToggleTwoPageMode,
+  isCompleted = false,
+  onMarkCompleted,
 }) => {
   const [pageInput, setPageInput] = useState<string>(String(currentPage));
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Keep input synced when page changes externally
   React.useEffect(() => {
@@ -154,7 +161,7 @@ export const ReaderToolbar: React.FC<ReaderToolbarProps> = ({
         </div>
 
         {/* Center Section: Page Navigation */}
-        <div className="flex items-center gap-1 sm:gap-2 shrink-0">
+        <div className="hidden sm:flex items-center gap-1 sm:gap-2 shrink-0">
           <button
             type="button"
             id="reader-prev-page-btn"
@@ -213,7 +220,7 @@ export const ReaderToolbar: React.FC<ReaderToolbarProps> = ({
         </div>
 
         {/* Right Section: Two-Page Toggle, Zoom, Calm Themes, Thumbnails, Download & Fullscreen */}
-        <div className="flex items-center gap-1 sm:gap-1.5 shrink-0">
+        <div className="hidden sm:flex items-center gap-1 sm:gap-1.5 shrink-0">
           {/* Two-Page Spread (Open Book Mode) Toggle for Laptop & Tablet */}
           <button
             type="button"
@@ -446,6 +453,8 @@ export const ReaderToolbar: React.FC<ReaderToolbarProps> = ({
             <span className="hidden sm:inline">Download</span>
           </button>
 
+          {onMarkCompleted && <button type="button" onClick={onMarkCompleted} disabled={isCompleted} className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold cute-btn ${isCompleted ? 'bg-[#e2eadf] text-[#3d5a3d]' : 'bg-[#5A5A40] text-white'}`} aria-label={isCompleted ? 'Book completed' : 'Mark book as completed'}><CheckCircle2 className="w-3.5 h-3.5" />{isCompleted ? 'Completed' : 'Mark as Completed'}</button>}
+
           {/* Fullscreen Toggle */}
           <button
             type="button"
@@ -458,7 +467,15 @@ export const ReaderToolbar: React.FC<ReaderToolbarProps> = ({
             {isFullscreen ? <Minimize className="w-4 h-4" /> : <Maximize className="w-4 h-4" />}
           </button>
         </div>
+        <button type="button" onClick={() => setMobileMenuOpen((open) => !open)} className={`sm:hidden p-2 rounded-full ${btnBg}`} aria-label="Open reader menu" aria-expanded={mobileMenuOpen}><Menu className="w-5 h-5" /></button>
       </div>
+      {mobileMenuOpen && <div className={`sm:hidden border-t px-3 py-3 grid grid-cols-2 gap-2 ${toolbarBg}`}>
+        <button type="button" onClick={() => { onPageChange(currentPage - 1); setMobileMenuOpen(false); }} disabled={currentPage <= 1} className={`py-2 rounded-lg text-xs font-semibold ${btnBg}`}>Previous page</button>
+        <button type="button" onClick={() => { onPageChange(currentPage + 1); setMobileMenuOpen(false); }} disabled={currentPage >= totalPages} className={`py-2 rounded-lg text-xs font-semibold ${btnBg}`}>Next page</button>
+        <button type="button" onClick={() => { onZoomOut(); }} className={`py-2 rounded-lg text-xs font-semibold ${btnBg}`}>Zoom out</button>
+        <button type="button" onClick={() => { onZoomIn(); }} className={`py-2 rounded-lg text-xs font-semibold ${btnBg}`}>Zoom in</button>
+        {onMarkCompleted && <button type="button" onClick={() => { onMarkCompleted(); setMobileMenuOpen(false); }} disabled={isCompleted} className="col-span-2 py-2 rounded-lg bg-[#5A5A40] text-white text-xs font-semibold disabled:bg-[#e2eadf] disabled:text-[#3d5a3d]">{isCompleted ? 'Completed' : 'Mark as Completed'}</button>}
+      </div>}
     </header>
   );
 };

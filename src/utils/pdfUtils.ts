@@ -40,9 +40,6 @@ export function initPdfWorker(): void {
   }
 }
 
-// In-memory cache for rendered thumbnails to prevent duplicate rendering
-const thumbnailCache = new Map<string, string>();
-
 // In-memory cache for rendered full pages (data URLs) to ensure instant, zero-flicker transitions
 const pageImageCache = new Map<string, { dataUrl: string; width: number; height: number }>();
 
@@ -99,98 +96,6 @@ export async function fetchAndValidatePdfData(pdfUrl: string): Promise<Uint8Arra
   }
 
   return bytes;
-}
-
-/**
- * Generate a thumbnail from the first page of a PDF document.
- * Returns a data URL (image/png or image/jpeg).
- */
-export async function generatePdfThumbnail(pdfUrl: string, targetWidth = 320): Promise<string> {
-  initPdfWorker();
-
-  const resolvedUrl = resolvePublicUrl(pdfUrl);
-
-  if (thumbnailCache.has(resolvedUrl)) {
-    return thumbnailCache.get(resolvedUrl)!;
-  }
-
-  // Check sessionStorage for persisted thumbnail
-  const cacheKey = `booknest_thumb_${resolvedUrl}`;
-  try {
-    const cached = sessionStorage.getItem(cacheKey);
-    if (cached) {
-      thumbnailCache.set(resolvedUrl, cached);
-      return cached;
-    }
-  } catch {
-    // Storage might be restricted
-  }
-
-  const version = pdfjsLib.version || '6.2.108';
-  const pdfBytes = await fetchAndValidatePdfData(resolvedUrl);
-
-  const loadingTask = pdfjsLib.getDocument({
-    data: pdfBytes,
-    cMapUrl: `https://cdn.jsdelivr.net/npm/pdfjs-dist@${version}/cmaps/`,
-    cMapPacked: true,
-  });
-
-  let pdf: pdfjsLib.PDFDocumentProxy | null = null;
-  try {
-    pdf = await loadingTask.promise;
-    const page = await pdf.getPage(1);
-
-    const unscaledViewport = page.getViewport({ scale: 1.0 });
-    const scale = targetWidth / unscaledViewport.width;
-    const viewport = page.getViewport({ scale });
-
-    const canvas = document.createElement('canvas');
-    const context = canvas.getContext('2d', { alpha: false });
-
-    if (!context) {
-      throw new Error('Canvas 2D context is not available');
-    }
-
-    // Account for device pixel ratio for crisp cover preview
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    canvas.width = Math.floor(viewport.width * dpr);
-    canvas.height = Math.floor(viewport.height * dpr);
-    canvas.style.width = `${Math.floor(viewport.width)}px`;
-    canvas.style.height = `${Math.floor(viewport.height)}px`;
-
-    context.scale(dpr, dpr);
-
-    // Fill with clean background before rendering
-    context.fillStyle = '#FFFFFF';
-    context.fillRect(0, 0, viewport.width, viewport.height);
-
-    const renderContext = {
-      canvasContext: context,
-      viewport: viewport,
-      canvas: canvas,
-    };
-
-    await page.render(renderContext).promise;
-
-    const dataUrl = canvas.toDataURL('image/jpeg', 0.88);
-    thumbnailCache.set(resolvedUrl, dataUrl);
-
-    try {
-      sessionStorage.setItem(cacheKey, dataUrl);
-    } catch {
-      // SessionStorage quota exceeded or disabled
-    }
-
-    return dataUrl;
-  } finally {
-    if (pdf) {
-      try {
-        pdf.cleanup();
-      } catch {
-        // Ignore cleanup errors
-      }
-    }
-  }
 }
 
 export { pdfjsLib };
