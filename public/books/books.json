@@ -12,12 +12,13 @@
   },
     {
     "id": "The_Silent_Patient",
-    "file": "public\\books\\The_Silent_Patient.png",
+    "file": "public\\books\\The_Silent_Patient.pdf",
     "filename": "The_Silent_Patient.pdf",
-    "title": "The Silent Patient ",
+    "title": "The Silent Patient",
     "author": "Karen M. McManus",
     "description": "A gripping psychological thriller about Alicia Berenson, a famous painter who suddenly stops speaking after being accused of murdering her husband. Psychotherapist Theo Faber becomes determined to uncover the truth behind her silence, leading to a dark mystery filled with secrets, obsession, and unexpected twists.",
-    "fileSize": "6 KB",
+    "pageCount": 281,
+    "fileSize": "1.1 MB",
     "template_img": "public\\books\\The_Silent_Patient.png"
   }
 ]
