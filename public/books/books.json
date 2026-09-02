@@ -1,57 +1,24 @@
 [
   {
-    "id": "demo-book",
-    "file": "/books/demo_book.pdf",
-    "filename": "demo_book.pdf",
-    "title": "The Little Bookshop",
-    "author": "Clara Bell",
-    "description": "A cozy story about a student discovering a hidden book haven",
+    "id": "You_ll_Be_the_Death_of_me",
+    "file": "public\\books\\You_ll_Be_the_Death_of_me.png",
+    "filename": "You_ll_Be_the_Death_of_me.pdf",
+    "title": "You'll Be the Death of Me",
+    "author": "Karen M. McManus",
+    "description": "A gripping young-adult mystery about three friends who skip school for a day of adventure, only to witness a murder and become entangled in a dangerous investigation filled with secrets, suspicion, and unexpected twists.",
     "pageCount": 5,
     "fileSize": "6 KB",
-    "template_img": "/books/demo.jpg"
+    "template_img": "public\\books\\You_ll_Be_the_Death_of_me.png"
   },
-  {
-    "id": "atomic-habits-focus",
-    "file": "/books/atomic_habits_focus.pdf",
-    "filename": "atomic_habits_focus.pdf",
-    "title": "Atomic Habits & Daily Focus",
-    "author": "James Clear & Studio Notes",
-    "description": "Practical strategies for building tiny routines that yield remarkable outcomes",
-    "pageCount": 3,
-    "fileSize": "3 KB",
-    "template_img": "/books/demo.jpg"
-  },
-  {
-    "id": "the-cozy-tea-garden",
-    "file": "/books/the_cozy_tea_garden.pdf",
-    "filename": "the_cozy_tea_garden.pdf",
-    "title": "The Cozy Tea Garden Guide",
-    "author": "Mei Lin",
-    "description": "A gentle handbook on herbs, brewing traditions, and mindful moments",
-    "pageCount": 3,
-    "fileSize": "3 KB",
-    "template_img": "/books/demo.jpg"
-  },
-  {
-    "id": "the-little-bookshop",
-    "file": "/books/the_little_bookshop.pdf",
-    "filename": "the_little_bookshop.pdf",
-    "title": "The Little Bookshop",
-    "author": "Clara Bell",
-    "description": "A cozy story about a student discovering a hidden book haven",
+    {
+    "id": "You_ll_Be_the_Death_of_me",
+    "file": "public\\books\\You_ll_Be_the_Death_of_me.png",
+    "filename": "You_ll_Be_the_Death_of_me.pdf",
+    "title": "You'll Be the Death of Me",
+    "author": "Karen M. McManus",
+    "description": "A gripping young-adult mystery about three friends who skip school for a day of adventure, only to witness a murder and become entangled in a dangerous investigation filled with secrets, suspicion, and unexpected twists.",
     "pageCount": 5,
     "fileSize": "6 KB",
-    "template_img": "/books/demo.jpg"
-  },
-  {
-    "id": "starlight-chronicles",
-    "file": "/books/starlight_chronicles.pdf",
-    "filename": "starlight_chronicles.pdf",
-    "title": "The Starlight Chronicles",
-    "author": "Julian Moore",
-    "description": "Essays on Night Skies and Wonder",
-    "pageCount": 3,
-    "fileSize": "4 KB",
-    "template_img": "/books/demo.jpg"
+    "template_img": "public\\books\\You_ll_Be_the_Death_of_me.png"
   }
 ]
