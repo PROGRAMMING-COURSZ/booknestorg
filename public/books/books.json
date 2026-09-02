@@ -7,7 +7,7 @@
     "author": "Karen M. McManus",
     "description": "A gripping young-adult mystery about three friends who skip school for a day of adventure, only to witness a murder and become entangled in a dangerous investigation filled with secrets, suspicion, and unexpected twists.",
     "pageCount": 296,
-    "fileSize": "6 KB",
+    "fileSize": "6.01 MB",
     "template_img": "public\\books\\You_ll_Be_the_Death_of_me.png"
   },
     {
@@ -15,10 +15,55 @@
     "file": "public\\books\\The_Silent_Patient.pdf",
     "filename": "The_Silent_Patient.pdf",
     "title": "The Silent Patient",
-    "author": "Karen M. McManus",
+    "author": "Alex Michaelides",
     "description": "A gripping psychological thriller about Alicia Berenson, a famous painter who suddenly stops speaking after being accused of murdering her husband. Psychotherapist Theo Faber becomes determined to uncover the truth behind her silence, leading to a dark mystery filled with secrets, obsession, and unexpected twists.",
     "pageCount": 281,
     "fileSize": "1.1 MB",
     "template_img": "public\\books\\The_Silent_Patient.png"
+  }
+  ,
+    {
+    "id": "The_Woman_in_the_Window",
+    "file": "public\\books\\The_Woman_in_the_Window.pdf",
+    "filename": "The_Woman_in_the_Window.pdf",
+    "title": "The Woman in the Window",
+    "author": "A. J. Finn",
+    "description":"A psychological thriller about Anna Fox, a woman who rarely leaves her home and spends her days watching her neighbors. When she witnesses something shocking through her window, she begins to question what she really saw as reality, fear, and deception become increasingly blurred.",
+    "pageCount": 410,
+    "fileSize": "1.67 MB",
+    "template_img": "public\\books\\The_Woman_in_the_Window.png"
+    },
+    {
+    "id": "GONE_GIRL",
+    "file": "public\\books\\GONE_GIRL.pdf",
+    "filename": "GONE_GIRL.pdf",
+    "title": "GONE GIRL",
+    "author": "Gillian Flynn",
+    "description":"A psychological thriller about Nick Dunne, whose wife Amy mysteriously disappears on their anniversary. As the investigation unfolds, secrets and lies emerge, forcing Nick—and the reader—to question what really happened and who can be trusted.",
+    "pageCount": 410,
+    "fileSize": "1.65 MB",
+    "template_img": "public\\books\\GONE_GIRL.png"
+  },
+    {
+    "id": "Rock_Paper_Scissors",
+    "file": "public\\books\\Rock_Paper_Scissors.pdf",
+    "filename": "Rock_Paper_Scissors.pdf",
+    "title": "Rock Paper Scissors",
+    "author": "Rock_Paper_Scissors",
+    "description":"A psychological thriller about a troubled married couple who travel to a remote Scottish church for an anniversary getaway. As hidden secrets and old resentments surface, they begin to realize that neither of them is being completely honest, leading to a tense and twist-filled mystery.",
+    "pageCount": 251,
+    "fileSize": "2.73 MB",
+    "template_img": "public\\books\\Rock_Paper_Scissors.png"
+  },
+    {
+    "id": "Verity",
+    "file": "public\\books\\Verity.pdf",
+    "filename": "Verity.pdf",
+    "title": "Verity",
+    "author": "Verity",
+    "description": "A psychological thriller about Lowen Ashleigh, a struggling writer hired to complete a bestselling author’s unfinished books. While staying with the author’s family, Lowen discovers a disturbing manuscript that reveals dark secrets and forces her to question what is real.",
+    "pageCount": 257,
+    "fileSize": "1.83 MB",
+    "template_img": "public\\books\\Verity.png"
   }
 ]
