@@ -4,7 +4,6 @@ import { useBooks } from '../hooks/useBooks';
 import { BookReader } from '../components/BookReader/BookReader';
 import { LoadingState } from '../components/LoadingState/LoadingState';
 import { ErrorState } from '../components/ErrorState/ErrorState';
-import { formatTitleFromFilename } from '../utils/titleUtils';
 import { Book } from '../types/book';
 
 export const Reader: React.FC = () => {
@@ -24,19 +23,6 @@ export const Reader: React.FC = () => {
     const withPdfExt = `${bookId}.pdf`.toLowerCase();
     const matchedWithExt = books.find((b) => b.filename.toLowerCase() === withPdfExt);
     if (matchedWithExt) return matchedWithExt;
-
-    // 3. Dynamic fallback if navigated directly to a valid static path
-    if (bookId) {
-      const filename = bookId.endsWith('.pdf') ? bookId : `${bookId.replace(/-/g, '_')}.pdf`;
-      return {
-        id: bookId,
-        file: `/books/${filename}`,
-        filename: filename,
-        title: formatTitleFromFilename(filename),
-        author: 'Unknown Author',
-        template_img: '/books/demo.jpg',
-      };
-    }
 
     return null;
   }, [bookId, books]);

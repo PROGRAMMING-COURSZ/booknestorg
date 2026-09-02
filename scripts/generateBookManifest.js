@@ -90,6 +90,11 @@ async function scanAndGenerateManifest() {
 
     const id = generateIdFromFilename(file);
 
+    const coverFile = files.find(candidate =>
+      candidate.replace(/\.[^.]+$/, '').toLowerCase() === file.replace(/\.pdf$/i, '').toLowerCase() &&
+      /\.(png|jpe?g|webp|avif)$/i.test(candidate)
+    );
+
     books.push({
       id,
       file: `/books/${file}`,
@@ -99,16 +104,11 @@ async function scanAndGenerateManifest() {
       description,
       pageCount,
       fileSize: formattedSize,
-      template_img: '/books/demo.jpg',
+      ...(coverFile ? { template_img: `/books/${coverFile}` } : {}),
     });
   }
 
-  // Sort books: put demo_book or the_little_bookshop first, then alphabetical by title
-  books.sort((a, b) => {
-    if (a.filename === 'demo_book.pdf') return -1;
-    if (b.filename === 'demo_book.pdf') return 1;
-    return a.title.localeCompare(b.title);
-  });
+  books.sort((a, b) => a.title.localeCompare(b.title));
 
   fs.writeFileSync(manifestPath, JSON.stringify(books, null, 2));
   console.log(`Successfully generated manifest with ${books.length} book(s) at: ${manifestPath}`);

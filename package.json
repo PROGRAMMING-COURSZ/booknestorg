@@ -4,8 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "node scripts/generateDemoBooks.js && node scripts/generateBookManifest.js && vite --port=3000 --host=0.0.0.0",
-    "build": "node scripts/generateDemoBooks.js && node scripts/generateBookManifest.js && vite build",
+    "dev": "vite --port=3000 --host=0.0.0.0",
+    "build": "vite build",
     "generate-manifest": "node scripts/generateBookManifest.js",
     "generate-demo": "node scripts/generateDemoBooks.js && node scripts/generateBookManifest.js",
     "preview": "vite preview",

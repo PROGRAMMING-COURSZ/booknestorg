@@ -36,7 +36,7 @@ npm install
 
 ### 2. Development
 
-Start the development server with automatic book manifest generation:
+Start the development server:
 
 ```bash
 npm run dev
@@ -67,12 +67,12 @@ Adding books to your personal library is completely seamless:
    └── your_new_book.pdf
    ```
 
-2. Run the manifest generator (or run `npm run dev` / `npm run build` which runs it automatically):
+2. Run the manifest generator:
    ```bash
    npm run generate-manifest
    ```
 
-3. The script scans `public/books/`, inspects PDF metadata, formats clean titles, and writes `public/books/books.json`.
+3. The script scans `public/books/`, inspects PDF metadata, finds a same-named cover image when present, and writes `public/books/books.json`. The website displays only the entries in this file; `npm run dev` and `npm run build` never overwrite it.
 
 ---
 
