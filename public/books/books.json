@@ -1,13 +1,23 @@
 [
   {
-    "id": "you-ll-be-the-death-of-me",
-    "file": "/books/You_ll_Be_the_Death_of_me.pdf",
+    "id": "You_ll_Be_the_Death_of_me",
+    "file": "public\\books\\You_ll_Be_the_Death_of_me.png",
     "filename": "You_ll_Be_the_Death_of_me.pdf",
     "title": "You'll Be the Death of Me",
     "author": "Karen M. McManus",
     "description": "A gripping young-adult mystery about three friends who skip school for a day of adventure, only to witness a murder and become entangled in a dangerous investigation filled with secrets, suspicion, and unexpected twists.",
-    "pageCount": 5,
-    "fileSize": "6 MB",
-    "template_img": "/books/You_ll_Be_the_Death_of_me.png"
+    "pageCount": 296,
+    "fileSize": "6 KB",
+    "template_img": "public\\books\\You_ll_Be_the_Death_of_me.png"
+  },
+    {
+    "id": "The_Silent_Patient",
+    "file": "public\\books\\The_Silent_Patient.png",
+    "filename": "The_Silent_Patient.pdf",
+    "title": "The Silent Patient ",
+    "author": "Karen M. McManus",
+    "description": "A gripping psychological thriller about Alicia Berenson, a famous painter who suddenly stops speaking after being accused of murdering her husband. Psychotherapist Theo Faber becomes determined to uncover the truth behind her silence, leading to a dark mystery filled with secrets, obsession, and unexpected twists.",
+    "fileSize": "6 KB",
+    "template_img": "public\\books\\The_Silent_Patient.png"
   }
 ]
