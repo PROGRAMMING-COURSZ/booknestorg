@@ -10,7 +10,7 @@ import {
   fetchAndValidatePdfData,
   resolvePublicUrl,
 } from '../../utils/pdfUtils';
-import { Book, Bookmark, ReaderColorTheme, ReaderTransitionEffect } from '../../types/book';
+import { Book, Bookmark, ReaderColorTheme } from '../../types/book';
 import { getBookProgress, saveBookProgress, markBookCompleted } from '../../utils/readingProgress';
 import { useReadingProgress } from '../../hooks/useReadingProgress';
 import {
@@ -56,7 +56,6 @@ export const BookReader: React.FC<BookReaderProps> = ({ book }) => {
   const [resumedNotice, setResumedNotice] = useState<number | null>(null);
   const [zoom, setZoom] = useState<number>(1.0);
   const [colorTheme, setColorTheme] = useState<ReaderColorTheme>('light');
-  const [transitionEffect, setTransitionEffect] = useState<ReaderTransitionEffect>('curl');
   const [showThumbnails, setShowThumbnails] = useState<boolean>(false);
   const [showBookmarksDrawer, setShowBookmarksDrawer] = useState<boolean>(false);
   const [bookmarks, setBookmarks] = useState<Bookmark[]>(() => getBookBookmarks(book.id));
@@ -66,6 +65,7 @@ export const BookReader: React.FC<BookReaderProps> = ({ book }) => {
 
   // Page turn transition direction ('next' | 'prev' | null)
   const [turnDirection, setTurnDirection] = useState<'next' | 'prev' | null>(null);
+  const turnTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Real-time touch drag offset from @use-gesture/react
   const [dragOffset, setDragOffset] = useState<number>(0);
@@ -299,6 +299,10 @@ export const BookReader: React.FC<BookReaderProps> = ({ book }) => {
       const clamped = Math.max(1, Math.min(totalPages, pageNum));
       if (clamped === currentPage) return;
       setTurnDirection(clamped > currentPage ? 'next' : 'prev');
+      if (turnTimerRef.current) clearTimeout(turnTimerRef.current);
+      // The highlight/shading belongs only to the flip itself. Clearing it also
+      // keeps rapid page changes responsive on touch devices.
+      turnTimerRef.current = setTimeout(() => setTurnDirection(null), 460);
       setCurrentPage(clamped);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     },
@@ -306,7 +310,6 @@ export const BookReader: React.FC<BookReaderProps> = ({ book }) => {
   );
 
   const prevPage = useCallback(() => {
-    setTurnDirection('prev');
     if (isTwoPageMode) {
       goToPage(Math.max(1, leftPageNum - 2));
     } else {
@@ -315,7 +318,6 @@ export const BookReader: React.FC<BookReaderProps> = ({ book }) => {
   }, [isTwoPageMode, leftPageNum, currentPage, goToPage]);
 
   const nextPage = useCallback(() => {
-    setTurnDirection('next');
     if (isTwoPageMode) {
       goToPage(Math.min(totalPages, leftPageNum + 2));
     } else {
@@ -431,96 +433,46 @@ export const BookReader: React.FC<BookReaderProps> = ({ book }) => {
     }
   );
 
-  // Dynamic Smooth Page Turn & Slide-Out / Page-Curl Animation Variants
+  useEffect(() => () => {
+    if (turnTimerRef.current) clearTimeout(turnTimerRef.current);
+  }, []);
+
+  // A page is kept in place while the outgoing page pivots away, revealing the
+  // next page underneath. This works for a single sheet and for the full spread.
   const getPageVariants = () => {
-    if (transitionEffect === 'slide') {
-      return {
-        initial: (dir: 'next' | 'prev' | null) => ({
-          x: dir === 'next' ? '80%' : dir === 'prev' ? '-80%' : '0%',
-          opacity: 0.6,
-          scale: 0.96,
-          rotate: dir === 'next' ? 1.5 : dir === 'prev' ? -1.5 : 0,
-        }),
-        animate: {
-          x: '0%',
-          opacity: 1,
-          scale: 1,
-          rotate: 0,
-          transition: {
-            type: 'spring',
-            stiffness: 280,
-            damping: 28,
-            mass: 0.9,
-          },
-        },
-        exit: (dir: 'next' | 'prev' | null) => ({
-          x: dir === 'next' ? '-90%' : dir === 'prev' ? '90%' : '0%',
-          opacity: 0,
-          scale: 0.94,
-          rotate: dir === 'next' ? -2.5 : dir === 'prev' ? 2.5 : 0,
-          transition: {
-            duration: 0.22,
-            ease: [0.32, 0, 0.67, 0],
-          },
-        }),
-      };
-    }
-
-    if (transitionEffect === 'fade') {
-      return {
-        initial: () => ({
-          opacity: 0.1,
-          scale: 0.98,
-        }),
-        animate: {
-          opacity: 1,
-          scale: 1,
-          transition: {
-            duration: 0.22,
-            ease: 'easeOut',
-          },
-        },
-        exit: () => ({
-          opacity: 0,
-          scale: 0.98,
-          transition: {
-            duration: 0.16,
-            ease: 'easeIn',
-          },
-        }),
-      };
-    }
-
-    // Default 'curl' (3D Page Curl with Paper Lift & Depth)
     return {
-      initial: (dir: 'next' | 'prev' | null) => ({
-        x: dir === 'next' ? 65 : dir === 'prev' ? -65 : 0,
-        rotateY: dir === 'next' ? 28 : dir === 'prev' ? -28 : 0,
-        transformOrigin: dir === 'next' ? 'right center' : 'left center',
-        opacity: 0.5,
-        scale: 0.96,
-      }),
-      animate: {
-        x: 0,
+      initial: {
+        opacity: 1,
         rotateY: 0,
+        rotateZ: 0,
+        x: 0,
+        scale: 1,
+        zIndex: 1,
+        filter: 'brightness(1)',
+        transformOrigin: 'center center',
+      },
+      animate: {
         opacity: 1,
         scale: 1,
         transition: {
-          type: 'spring',
-          stiffness: 260,
-          damping: 25,
-          mass: 0.85,
+          duration: 0.12,
+          ease: 'easeOut',
         },
       },
       exit: (dir: 'next' | 'prev' | null) => ({
-        x: dir === 'next' ? -85 : dir === 'prev' ? 85 : 0,
-        rotateY: dir === 'next' ? -38 : dir === 'prev' ? 38 : 0,
+        // Forward turns hinge at the left edge; backward turns hinge at the
+        // right edge. The new content is already underneath this outgoing sheet.
         transformOrigin: dir === 'next' ? 'left center' : 'right center',
-        opacity: 0,
-        scale: 0.94,
+        rotateY: dir === 'next' ? -92 : 92,
+        rotateZ: dir === 'next' ? -1.2 : 1.2,
+        x: dir === 'next' ? -10 : 10,
+        opacity: 0.55,
+        scale: 0.995,
+        filter: 'brightness(0.82)',
+        zIndex: 2,
         transition: {
-          duration: 0.24,
-          ease: [0.4, 0, 0.2, 1],
+          duration: 0.42,
+          ease: [0.22, 0.61, 0.36, 1],
         },
       }),
     };
@@ -586,7 +538,6 @@ export const BookReader: React.FC<BookReaderProps> = ({ book }) => {
         zoom={zoom}
         isFullscreen={isFullscreen}
         colorTheme={colorTheme}
-        transitionEffect={transitionEffect}
         showThumbnailsDrawer={showThumbnails}
         showBookmarksDrawer={showBookmarksDrawer}
         isCurrentPageBookmarked={isCurrentPageBookmarked}
@@ -598,7 +549,6 @@ export const BookReader: React.FC<BookReaderProps> = ({ book }) => {
         onResetZoom={handleResetZoom}
         onToggleFullscreen={toggleFullscreen}
         onThemeChange={setColorTheme}
-        onTransitionEffectChange={setTransitionEffect}
         onToggleThumbnails={() => {
           setShowThumbnails(!showThumbnails);
           if (!showThumbnails) setShowBookmarksDrawer(false);
@@ -924,7 +874,7 @@ export const BookReader: React.FC<BookReaderProps> = ({ book }) => {
                   )}
 
                   {/* Dynamic Shading on Page Curl */}
-                  {transitionEffect === 'curl' && turnDirection && (
+                  {turnDirection && (
                     <div
                       className={`page-curl-layer ${
                         turnDirection === 'next'
@@ -968,7 +918,7 @@ export const BookReader: React.FC<BookReaderProps> = ({ book }) => {
               <span>•</span>
               <span className="inline-flex items-center gap-1">
                 <Layers className="w-3 h-3" />
-                Swipe, click or use arrow keys ({transitionEffect === 'curl' ? '3D Page Curl' : 'Slide-Out'} transition)
+                Swipe, click or use arrow keys to turn the page
               </span>
             </p>
           </div>

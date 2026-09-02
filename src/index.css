@@ -45,6 +45,16 @@
   transform-style: preserve-3d;
   backface-visibility: hidden;
   will-change: transform, opacity, filter;
+  -webkit-backface-visibility: hidden;
+  transform-origin: center center;
+}
+
+/* The reduced perspective on phones keeps the flip readable instead of making
+   the page appear to disappear edge-on. */
+@media (max-width: 640px) {
+  .page-turn-stage {
+    perspective: 1100px;
+  }
 }
 
 /* Realistic Page Curl Shading & Edge Lift */

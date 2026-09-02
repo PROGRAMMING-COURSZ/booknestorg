@@ -13,8 +13,6 @@ export interface Book {
 }
 
 export type ReaderColorTheme = 'light' | 'sepia' | 'calm';
-export type ReaderTransitionEffect = 'curl' | 'slide' | 'fade';
-
 export interface Bookmark {
   id: string;
   bookId: string;

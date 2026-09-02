@@ -20,7 +20,7 @@ import {
   CheckCircle2,
   Menu,
 } from 'lucide-react';
-import { ReaderColorTheme, ReaderTransitionEffect } from '../../types/book';
+import { ReaderColorTheme } from '../../types/book';
 
 interface ReaderToolbarProps {
   bookTitle: string;
@@ -32,7 +32,6 @@ interface ReaderToolbarProps {
   zoom: number;
   isFullscreen: boolean;
   colorTheme: ReaderColorTheme;
-  transitionEffect?: ReaderTransitionEffect;
   showThumbnailsDrawer: boolean;
   showBookmarksDrawer?: boolean;
   isCurrentPageBookmarked?: boolean;
@@ -44,7 +43,6 @@ interface ReaderToolbarProps {
   onResetZoom: () => void;
   onToggleFullscreen: () => void;
   onThemeChange: (theme: ReaderColorTheme) => void;
-  onTransitionEffectChange?: (effect: ReaderTransitionEffect) => void;
   onToggleThumbnails: () => void;
   onToggleBookmarksDrawer?: () => void;
   onToggleBookmark?: () => void;
@@ -63,7 +61,6 @@ export const ReaderToolbar: React.FC<ReaderToolbarProps> = ({
   zoom,
   isFullscreen,
   colorTheme,
-  transitionEffect = 'curl',
   showThumbnailsDrawer,
   showBookmarksDrawer = false,
   isCurrentPageBookmarked = false,
@@ -75,7 +72,6 @@ export const ReaderToolbar: React.FC<ReaderToolbarProps> = ({
   onResetZoom,
   onToggleFullscreen,
   onThemeChange,
-  onTransitionEffectChange,
   onToggleThumbnails,
   onToggleBookmarksDrawer,
   onToggleBookmark,
@@ -284,40 +280,6 @@ export const ReaderToolbar: React.FC<ReaderToolbarProps> = ({
               <ZoomIn className="w-3.5 h-3.5" />
             </button>
           </div>
-
-          {/* Page Turn Animation Style Switcher */}
-          {onTransitionEffectChange && (
-            <div className="hidden sm:flex items-center gap-0.5 p-0.5 rounded-full border border-[#e5e5de] bg-[#f5f5f0]">
-              <button
-                type="button"
-                id="anim-curl-btn"
-                onClick={() => onTransitionEffectChange('curl')}
-                className={`px-2 py-1 rounded-full text-[11px] font-medium transition-all cute-btn cursor-pointer ${
-                  transitionEffect === 'curl'
-                    ? 'bg-[#5A5A40] text-white shadow-xs'
-                    : 'text-[#8c8c82] hover:text-[#2d2d2b]'
-                }`}
-                title="Page Curl 3D Animation"
-                aria-label="Page Curl Animation"
-              >
-                Curl
-              </button>
-              <button
-                type="button"
-                id="anim-slide-btn"
-                onClick={() => onTransitionEffectChange('slide')}
-                className={`px-2 py-1 rounded-full text-[11px] font-medium transition-all cute-btn cursor-pointer ${
-                  transitionEffect === 'slide'
-                    ? 'bg-[#5A5A40] text-white shadow-xs'
-                    : 'text-[#8c8c82] hover:text-[#2d2d2b]'
-                }`}
-                title="Slide-Out Smooth Animation"
-                aria-label="Slide-Out Animation"
-              >
-                Slide
-              </button>
-            </div>
-          )}
 
           {/* Cute & Calm Theme Switcher (Warm Light / Cozy Sepia / Calm Sage) */}
           <div className="flex items-center gap-0.5 p-0.5 rounded-full border border-[#e5e5de] bg-[#f5f5f0]">
