@@ -49,7 +49,7 @@
     "file": "public\\books\\Rock_Paper_Scissors.pdf",
     "filename": "Rock_Paper_Scissors.pdf",
     "title": "Rock Paper Scissors",
-    "author": "Rock_Paper_Scissors",
+    "author": "Alice Feeney",
     "description":"A psychological thriller about a troubled married couple who travel to a remote Scottish church for an anniversary getaway. As hidden secrets and old resentments surface, they begin to realize that neither of them is being completely honest, leading to a tense and twist-filled mystery.",
     "pageCount": 251,
     "fileSize": "2.73 MB",
@@ -120,6 +120,17 @@
     "pageCount": 277,
     "fileSize": "4.25 MB",
     "template_img": "public\\books\\Cross_My_Heart.png"
+  },
+    {
+    "id": "Pretty_Girls",
+    "file": "public\\books\\Pretty_Girls.pdf",
+    "filename": "Pretty_Girls.pdf",
+    "title": "Pretty Girls",
+    "author": "Karin Slaughter",
+    "description":"A dark psychological thriller about two estranged sisters who reunite after a devastating family tragedy. As they uncover disturbing secrets surrounding their past, they are drawn into a terrifying mystery involving violence, betrayal, and a long-hidden truth.",
+    "pageCount": 426,
+    "fileSize": "2.81 MB",
+    "template_img": "public\\books\\Pretty_Girls.png"
   }
 ]
 
