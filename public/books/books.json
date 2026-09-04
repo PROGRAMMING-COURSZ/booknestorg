@@ -60,10 +60,68 @@
     "file": "public\\books\\Verity.pdf",
     "filename": "Verity.pdf",
     "title": "Verity",
-    "author": "Verity",
+    "author": "Lowen Ashleigh",
     "description": "A psychological thriller about Lowen Ashleigh, a struggling writer hired to complete a bestselling author’s unfinished books. While staying with the author’s family, Lowen discovers a disturbing manuscript that reveals dark secrets and forces her to question what is real.",
     "pageCount": 257,
     "fileSize": "1.83 MB",
     "template_img": "public\\books\\Verity.png"
+  },
+    {
+    "id": "Blood_Orange",
+    "file": "public\\books\\Blood_Orange.pdf",
+    "filename": "Blood_Orange.pdf",
+    "title": "Blood Orange",
+    "author": "Halle, Karina",
+    "description":"A gripping psychological thriller about a lawyer whose personal life begins to unravel while she defends a woman accused of murder. As secrets emerge and danger closes in, she must confront the dark truths surrounding both the case and her own life.",
+    "pageCount": 243,
+    "fileSize": "1.34 MB",
+    "template_img": "public\\books\\Blood_Orange.png"
+  },
+    {
+    "id": "Greek_Row",
+    "file": "public\\books\\Greek_Row.pdf",
+    "filename": "Greek_Row.pdf",
+    "title": "Greek Row",
+    "author": "Phynley Meyers",
+    "description":"A dark contemporary mystery about college students caught in a web of secrets, rivalries, and dangerous relationships within a Greek-life community. As tensions rise, hidden truths begin to surface, putting friendships and lives at risk.",
+    "pageCount": 311,
+    "fileSize": "2.81 MB",
+    "template_img": "public\\books\\Greek_Row.png"
+  },
+    {
+    "id": "Hidden_Pictures",
+    "file": "public\\books\\Hidden_Pictures.pdf",
+    "filename": "Hidden_Pictures.pdf",
+    "title": "Hidden Pictures",
+    "author": "Jason Rekulak",
+    "description":"A psychological thriller about a struggling young woman who becomes a caregiver for a wealthy family and discovers disturbing hidden drawings made by their autistic son. As she investigates the mysterious pictures, she uncovers secrets that put her own life in danger.",
+    "pageCount": 362,
+    "fileSize": "5.18 MB",
+    "template_img": "public\\books\\Hidden_Pictures.png"
+  },
+    {
+    "id": "Thats_Not_My_Name",
+    "file": "public\\books\\Thats_Not_My_Name.pdf",
+    "filename": "Thats_Not_My_Name.pdf",
+    "title": "That's Not My Name",
+    "author": "Megan Lally",
+    "description":"A supernatural thriller about Mallory Quinn, a young woman who takes a babysitting job and discovers that five-year-old Teddy’s increasingly disturbing drawings may reveal the details of a long-unsolved murder. As Mallory investigates, she uncovers terrifying secrets surrounding the family and their home.",
+    "pageCount": 299,
+    "fileSize": "6.26 MB",
+    "template_img": "public\\books\\Thats_Not_My_Name.png"
+  },
+    {
+    "id": "Cross_My_Heart",
+    "file": "public\\books\\Cross_My_Heart.pdf",
+    "filename": "Cross_My_Heart.pdf",
+    "title": "Cross My Heart",
+    "author": "Megan Collins",
+    "description":"A tense crime thriller in which detective Alex Cross faces his most dangerous enemy yet—a criminal who targets his family. As those closest to him are placed in grave danger, Cross must fight to protect them while confronting a deeply personal threat.",
+    "pageCount": 277,
+    "fileSize": "4.25 MB",
+    "template_img": "public\\books\\Cross_My_Heart.png"
   }
 ]
+
+
+
