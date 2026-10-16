@@ -131,6 +131,17 @@
     "pageCount": 426,
     "fileSize": "2.81 MB",
     "template_img": "public\\books\\Pretty_Girls.png"
+  },
+    {
+    "id": "The_Stranger",
+    "file": "public\\books\\The_Stranger.pdf",
+    "filename": "The_Stranger.pdf",
+    "title": "The Stranger",
+    "author": "Albert Camus ",
+    "description": "Albert Camus, the Nobel Prize-winning French author, explores the absurdity of human existence, freedom, and the search for meaning. His works, including The Stranger and The Plague, challenge conventional beliefs and examine humanity’s struggle to find purpose in an indifferent world.",
+    "pageCount": 77,
+    "fileSize": "537.2 KB",
+    "template_img": "public\\books\\The_Stranger.jpg"
   }
 ]
 
